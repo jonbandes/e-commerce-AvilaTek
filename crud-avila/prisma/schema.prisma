@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model clients_tb {
+  id       Int     @id @default(autoincrement())
+  name     String
+  email    String  @unique
+  job      String?
+  rate     Float
+  isactive Boolean
+}
+
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  orders   Order[]  @relation("UserOrders")  // Relación inversa con Order
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  price       Float
+  inStock     Boolean
+  orderItems  OrderItem[] @relation("ProductOrderItems") // Relación inversa con OrderItem
+}
+
+model Order {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  status     String    @default("PENDING")
+  createdAt  DateTime  @default(now())
+  user       User      @relation("UserOrders", fields: [userId], references: [id])
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation("ProductOrderItems", fields: [productId], references: [id])
+}

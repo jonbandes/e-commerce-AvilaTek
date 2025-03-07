@@ -1,0 +1,105 @@
+# API REST de Comercio Electrónico - Avila Tek
+
+## Descripción del Proyecto
+
+Este proyecto tiene como objetivo desarrollar una **API REST robusta y escalable** para una plataforma de comercio electrónico ficticia. La API facilita la **autenticación de usuarios**, la **gestión de inventario de productos**, el **procesamiento de pedidos** y el **almacenamiento de datos**, garantizando al mismo tiempo la seguridad, escalabilidad y eficiencia.
+
+### Tecnologías utilizadas:
+- **Node.js**: Para la implementación del servidor y lógica de negocio.
+- **Express**: Framework web para la creación de la API.
+- **Prisma**: ORM para interactuar con la base de datos.
+- **JWT (JSON Web Token)**: Para la autenticación y autorización de usuarios.
+- **PostgreSQL**: Base de datos relacional para almacenar productos, usuarios y pedidos.
+- **Bcrypt.js**: Para encriptación de contraseñas.
+
+---
+
+## Endpoints
+
+### 1. **Autenticación de Usuario**
+   - **POST /auth/register**
+     - Registra un nuevo usuario.
+   - **POST /auth/login**
+     - Inicia sesión de usuario.
+
+### 2. **Gestión de Productos**
+   - **GET /products**
+     - Lista todos los productos disponibles con soporte de paginación.
+   - **POST /products**
+     - Crea un nuevo producto (solo accesible para administradores).
+   - **PUT /product/:id**
+     - Actualiza un producto existente por su ID.
+   - **DELETE /product/:id**
+     - Elimina un producto por su ID (solo accesible para administradores).
+
+### 3. **Gestión de Pedidos**
+   - **GET /orders**
+     - Obtiene el historial de pedidos de un usuario autenticado.
+   - **POST /orders**
+     - Crea un nuevo pedido de productos para un usuario autenticado.
+
+---
+
+## Manejo de Errores
+
+La API maneja varios tipos de errores:
+- **400 Bad Request**: Cuando los datos de la solicitud no son válidos o faltan parámetros obligatorios.
+- **401 Unauthorized**: Cuando el usuario no está autenticado o no tiene permisos suficientes.
+- **404 Not Found**: Cuando un recurso (producto, pedido, usuario) no se encuentra.
+- **500 Internal Server Error**: En caso de un error inesperado del servidor.
+
+Los mensajes de error son detallados y se devuelven en formato JSON para proporcionar contexto sobre lo que ha fallado.
+
+---
+
+## Instalación y Uso
+
+### Requisitos
+- Node.js (versión 14 o superior)
+- PostgreSQL 
+
+---
+
+
+### Pasos para la instalación:
+1. **Clona el repositorio**:
+   ```bash
+   git clone https://github.com/aviatek/ecommerce-api.git
+   cd ecommerce-api
+   npm install
+   --Configurar las variables de entorno--
+   npx prisma generate
+   npx prisma migrate deploy
+   nodemon src/index.js
+
+### Estructura del Proyecto
+
+/src
+  /controllers                  # Controladores para manejar la lógica de la API
+  /prisma/schema.prisma         # Modelos de datos para interactuar con la base de datos
+  /routes                       # Rutas de la API
+  /services                     # Lógica de negocio
+  index.js                      # Punto de entrada del servidor
+  .env                          # Variables de entorno
+/package.json                   # Archivo de configuración de npm
+
+### Elecciones de Diseño
+
+**Base de Datos: PostgreSQL**  
+Se optó por PostgreSQL porque es confiable y robusto. Es ideal para manejar grandes cantidades de datos de manera eficiente, y además ayuda a mantener bien organizadas las relaciones entre productos, usuarios y pedidos, lo cual es clave para una tienda en línea.
+
+**Framework y Bibliotecas**:
+
+- **Express**: Fue elegido por lo fácil y rápido que es para crear APIs RESTful.
+- **Prisma**: Se usó como ORM, que hace más sencillo interactuar con la base de datos y mejora el rendimiento de las consultas.
+- **JWT**: Para la autenticación, se implementó JWT, que permite gestionar el acceso de los usuarios de manera segura y sin necesidad de mantener sesiones, lo que hace que la plataforma sea más escalable.
+- **bcrypt**: Se eligió para encriptar las contraseñas y asegurar que los datos sensibles estén protegidos.
+
+**Arquitectura**  
+La API está estructurada de acuerdo al modelo RESTful, que es fácil de entender y usar. Se implementó JWT para la autenticación sin estado, lo que contribuye a que la plataforma sea más escalable. Además, el código se organizó de manera modular, lo que facilita hacerle mantenimiento y actualizaciones en el futuro.
+
+**Escalabilidad**  
+Se incluyó paginación en los endpoints de productos y pedidos para mejorar el rendimiento cuando haya muchos datos. También se utilizó Prisma para optimizar el acceso a la base de datos y asegurar que el sistema siga funcionando bien a medida que la plataforma crece.
+
+**Resumen**  
+Todas estas decisiones están orientadas a crear una plataforma de comercio electrónico que sea segura, eficiente y fácil de mantener con el tiempo.
