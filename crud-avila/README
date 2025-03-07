@@ -64,7 +64,7 @@ Los mensajes de error son detallados y se devuelven en formato JSON para proporc
 ### Pasos para la instalación:
 1. **Clona el repositorio**:
    ```bash
-   git clone https://github.com/aviatek/ecommerce-api.git
+   git clone https://github.com/jonbandes/e-commerce-AvilaTek/.git
    cd ecommerce-api
    npm install
    --Configurar las variables de entorno--
