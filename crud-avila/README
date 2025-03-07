@@ -65,7 +65,7 @@ Los mensajes de error son detallados y se devuelven en formato JSON para proporc
 1. **Clona el repositorio**:
    ```bash
    git clone https://github.com/jonbandes/e-commerce-AvilaTek/.git
-   cd ecommerce-api
+   cd e-commerce-AvilaTek
    npm install
    --Configurar las variables de entorno--
    npx prisma generate
